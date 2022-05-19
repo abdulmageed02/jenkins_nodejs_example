@@ -5,7 +5,10 @@ pipeline {
             steps {
                 sh 'docker build . -t node-app'
                 sh 'docker rm -f node-app'
-                sh 'docker run --env-file /home/ubuntu/.env -d -p 3000:3000 --name node-app node-app'
+                 withCredentials([usernamePassword(credentialsId: 'ENV_VAR', usernameVariable: 'USERNAME', passwordVariable: 'PASS')]) {
+                        sh "docker run -d --name node-app --env-file /home/ubuntu/.env -e RDS_USERNAME=${USERNAME} -e RDS_PASSWORD=${PASS} -p3000:3000  node-app"
+                    }
+           
                
             }
 
