@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'slave' } 
     stages {
-        stage('Deploy') {
+        stage('Deploy ') {
             steps {
                 sh 'sudo docker build . -t node-app'
                 sh 'sudo docker rm -f node-app'
